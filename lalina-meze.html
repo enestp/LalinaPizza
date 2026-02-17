@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Lina Pizza</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f5f5f5;
+    color:#222;
+    line-height:1.6;
+}
+
+h1,h2,h3{
+    font-family:'Playfair Display',serif;
+    letter-spacing:1px;
+}
+
+section{
+    padding:100px 8%;
+}
+
+.hero{
+    height:100vh;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:linear-gradient(180deg,#ffffff 0%, #f9f5f5 100%);
+    overflow:hidden;
+}
+
+/* Karanlık fade intro katmanı */
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:#ffffff;
+    animation:cinematicFade 2s ease forwards;
+    z-index:1;
+}
+
+/* Arka hafif kırmızı ışık */
+.hero::after{
+    content:"";
+    position:absolute;
+    width:800px;
+    height:800px;
+    background:radial-gradient(circle, rgba(177,18,27,0.15) 0%, transparent 70%);
+    animation:slowPulse 6s ease-in-out infinite;
+    z-index:0;
+}
+
+/* Logo */
+.hero img{
+    width:420px;
+    max-width:85%;
+    z-index:2;
+    opacity:0;
+    transform:scale(1.2);
+    animation:logoReveal 2.5s ease forwards;
+}
+
+/* Başlık */
+.hero h1{
+    margin-top:30px;
+    font-size:48px;
+    color:#B1121B;
+    z-index:2;
+    opacity:0;
+    animation:fadeUp 3s ease forwards;
+}
+
+.hero p{
+    margin-top:12px;
+    font-size:18px;
+    color:#555;
+    z-index:2;
+    opacity:0;
+    animation:fadeUp 3.5s ease forwards;
+}
+
+/* Scroll Indicator */
+.scroll-indicator{
+    position:absolute;
+    bottom:40px;
+    width:25px;
+    height:40px;
+    border:2px solid #B1121B;
+    border-radius:20px;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding-top:6px;
+    z-index:2;
+    animation:fadeIn 4s ease forwards;
+    opacity:0;
+}
+
+.scroll-indicator span{
+    width:4px;
+    height:8px;
+    background:#B1121B;
+    border-radius:2px;
+    animation:scrollMove 2s infinite;
+}
+
+/* Animations */
+
+@keyframes cinematicFade{
+    0%{opacity:1;}
+    100%{opacity:0;}
+}
+
+@keyframes logoReveal{
+    0%{
+        opacity:0;
+        transform:scale(1.2);
+    }
+    100%{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+@keyframes fadeUp{
+    0%{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    100%{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes slowPulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.1);}
+    100%{transform:scale(1);}
+}
+
+@keyframes scrollMove{
+    0%{transform:translateY(0); opacity:1;}
+    100%{transform:translateY(10px); opacity:0;}
+}
+
+@keyframes fadeIn{
+    0%{opacity:0;}
+    100%{opacity:1;}
+}
+
+
+.btn{
+    display:inline-block;
+    padding:14px 35px;
+    background:#B1121B;
+    color:#fff;
+    text-decoration:none;
+    border-radius:30px;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#8e0e15;
+}
+
+.menu{
+    background:#ffffff;
+}
+
+.menu h2{
+    text-align:center;
+    font-size:40px;
+    margin-bottom:60px;
+    color:#B1121B;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:40px;
+}
+
+.card{
+    background:#ffffff;
+    border-radius:18px;
+    overflow:hidden;
+    transition:.4s;
+    box-shadow:0 10px 30px rgba(177,18,27,0.08);
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 15px 40px rgba(177,18,27,0.15);
+}
+
+.card img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:25px;
+}
+
+.card h3{
+    font-size:22px;
+    margin-bottom:10px;
+    color:#222;
+}
+
+.card p{
+    font-size:14px;
+    color:#666;
+    margin-bottom:15px;
+}
+
+.price{
+    color:#B1121B;
+    font-weight:600;
+    font-size:18px;
+}
+
+.feature{
+    background:#fafafa;
+    text-align:center;
+}
+
+.feature h2{
+    font-size:38px;
+    margin-bottom:40px;
+    color:#B1121B;
+}
+
+.feature img{
+    width:340px;
+    margin-bottom:30px;
+    transition:transform .4s;
+}
+
+.feature img:hover{
+    transform:scale(1.05);
+}
+
+.contact{
+    text-align:center;
+    background:#ffffff;
+}
+
+.contact h2{
+    font-size:38px;
+    margin-bottom:40px;
+    color:#B1121B;
+}
+
+.contact a{
+    color:#B1121B;
+    text-decoration:none;
+    display:block;
+    margin:10px 0;
+}
+
+iframe{
+    margin-top:40px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    background:#B1121B;
+    color:#fff;
+    font-size:14px;
+}
+
+@media(max-width:768px){
+    .hero h1{
+        font-size:34px;
+    }
+}
+
+
+/* GLASS TOPBAR */
+
+.topbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    padding:25px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    backdrop-filter:blur(12px);
+    background:rgba(255,255,255,0.4);
+    transition:all .4s ease;
+    z-index:1000;
+}
+
+.topbar.scrolled{
+    padding:15px 8%;
+    background:rgba(255,255,255,0.95);
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.logo-text{
+    font-family:'Playfair Display',serif;
+    font-weight:700;
+    font-size:22px;
+    color:#B1121B;
+    transition:.4s;
+}
+
+.topbar.scrolled .logo-text{
+    font-size:18px;
+}
+
+/* NAV */
+
+.topbar nav{
+    display:flex;
+}
+
+.topbar nav a{
+    margin-left:30px;
+    text-decoration:none;
+    color:#333;
+    font-weight:500;
+    position:relative;
+    transition:.3s;
+}
+
+.topbar nav a:hover,
+.topbar nav a.active{
+    color:#B1121B;
+}
+
+.topbar nav a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-5px;
+    width:0%;
+    height:2px;
+    background:#B1121B;
+    transition:.3s;
+}
+
+.topbar nav a:hover::after,
+.topbar nav a.active::after{
+    width:100%;
+}
+
+/* MOBILE MENU */
+
+.menu-toggle{
+    display:none;
+    flex-direction:column;
+    cursor:pointer;
+}
+
+.menu-toggle span{
+    width:25px;
+    height:3px;
+    background:#B1121B;
+    margin:4px 0;
+    transition:.4s;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+    .menu-toggle{
+        display:flex;
+    }
+
+    .topbar nav{
+        position:absolute;
+        top:100%;
+        right:0;
+        background:white;
+        flex-direction:column;
+        width:220px;
+        padding:20px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.1);
+        transform:translateY(-20px);
+        opacity:0;
+        pointer-events:none;
+        transition:.3s;
+    }
+
+    .topbar nav.show{
+        transform:translateY(0);
+        opacity:1;
+        pointer-events:auto;
+    }
+
+    .topbar nav a{
+        margin:15px 0;
+    }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="logo-text">LA LINA</div>
+
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+<nav id="navMenu">
+    <a href="index.html" class="nav-link ">LaLinaPizza</a>
+    <a href="lalina-meze.html" class="nav-link active">LaLinaMeze</a>
+    <a href="lalina-fastfood.html" class="nav-link">LaLinaFastFood</a>
+    <a href="#contact" class="nav-link">İletişim</a>
+</nav>
+
+</header>
+
+
+<section class="hero">
+    <img src="logo.jpg" alt="La Lina Pizza Logo">
+    <h1>La Lina Pizza</h1>
+    <p>Gerçek İtalyan Lezzeti</p>
+
+    <div class="scroll-indicator">
+        <span></span>
+    </div>
+</section>
+
+
+
+<section class="menu" id="menu">
+<h2>Menümüz</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="alaturkapizza.jpg">
+<div class="card-content">
+<h3>Alaturka Pizza</h3>
+<p>Dana sucuk, mantar, mısır, siyah & yeşil zeytin, renkli biber.</p>
+<div class="price">465 TL</div>
+</div>
+</div>
+
+<div class="card">
+<img src="margaritapizza.jpg">
+<div class="card-content">
+<h3>Margarita Pizza</h3>
+<p>Mozzarella, pesto sos ve özel domates sos.</p>
+<div class="price">205 TL</div>
+</div>
+</div>
+
+<div class="card">
+<img src="fungipizza.jpg">
+<div class="card-content">
+<h3>Fungi Pizza</h3>
+<p>Kültür mantarı, istiridye mantarı ve taze kekik.</p>
+<div class="price">235 TL</div>
+</div>
+</div>
+
+<div class="card">
+<img src="sarkuteripizza.jpg">
+<div class="card-content">
+<h3>Şarküteri Pizza</h3>
+<p>Sucuk, pastırma, kavurma ve parmesan.</p>
+<div class="price">700 TL</div>
+</div>
+</div>
+
+<div class="card">
+<img src="dortpeynirlipizza.jpg">
+<div class="card-content">
+<h3>Dört Peynirli</h3>
+<p>Rokfor, eski kaşar, parmesan ve mozzarella.</p>
+<div class="price">420 TL</div>
+</div>
+</div>
+
+<div class="card">
+<img src="akdenizpizza.jpg">
+<div class="card-content">
+<h3>Akdeniz Pizza</h3>
+<p>Beyaz peynir, konfi domates ve roka.</p>
+<div class="price">325 TL</div>
+</div>
+</div>
+
+<div class="card">
+<img src="tantunipizza.jpg">
+<div class="card-content">
+<h3>Tantuni Pizza</h3>
+<p>Özel tantuni et, çeri domates ve köy biberi.</p>
+<div class="price">365 TL</div>
+</div>
+</div>
+
+<div class="card">
+<img src="danacarpaciccopizza.jpg">
+<div class="card-content">
+<h3>Dana Carpaccio</h3>
+<p>İnce dilim dana, roka ve parmesan.</p>
+<div class="price">495 TL</div>
+</div>
+</div>
+
+<div class="card">
+<img src="vejeteryanpizza.jpg">
+<div class="card-content">
+<h3>Vejeteryan Pizza</h3>
+<p>Köz sebzeler, enginar ve çam fıstığı.</p>
+<div class="price">365 TL</div>
+</div>
+</div>
+
+<div class="card">
+<img src="tonbaliklipizza.jpg">
+<div class="card-content">
+<h3>Ton Balıklı Pizza</h3>
+<p>Ton balığı, kırmızı soğan ve limon kabuğu.</p>
+<div class="price">375 TL</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="feature">
+<h2>Şefin Önerisi</h2>
+<img src="lalinapizza.jpg" alt="">
+<h3>La Lina Özel</h3>
+<p>Bonfile et, mantar, ıspanak ve susam yağı.</p>
+<div class="price">455 TL</div>
+</section>
+
+<section class="contact" id="contact">
+<h2>İletişim</h2>
+<a href="tel:05441455353">📞 0544 145 53 53</a>
+<a href="https://www.instagram.com/lalinapizza/" target="_blank">📷 Instagram</a>
+<p>Zümrütevler, Akşemsettin Cd 104B, İstanbul</p>
+</section>
+
+<iframe 
+src="https://www.google.com/maps?q=Zümrütevler,+Akşemsettin+Cd+104B,+Istanbul&output=embed" 
+width="100%" 
+height="350px" 
+style="border:0;" 
+allowfullscreen="" 
+loading="lazy">
+</iframe>
+
+
+
+<footer>
+© 2026 La Lina Pizza – Tüm Hakları Saklıdır
+</footer>
+
+<script>
+
+// Scroll navbar effect
+window.addEventListener("scroll", function(){
+    const header = document.querySelector(".topbar");
+    if(window.scrollY > 80){
+        header.classList.add("scrolled");
+    }else{
+        header.classList.remove("scrolled");
+    }
+});
+
+// Mobile menu toggle
+const menuToggle = document.getElementById("menuToggle");
+const navMenu = document.getElementById("navMenu");
+
+menuToggle.addEventListener("click", ()=>{
+    navMenu.classList.toggle("show");
+});
+
+// Active link on scroll
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".topbar nav a");
+
+window.addEventListener("scroll", ()=>{
+    let current = "";
+
+    sections.forEach(section=>{
+        const sectionTop = section.offsetTop;
+        if(pageYOffset >= sectionTop - 150){
+            current = section.getAttribute("id");
+        }
+    });
+
+    navLinks.forEach(a=>{
+        a.classList.remove("active");
+        if(a.getAttribute("href") === "#"+current){
+            a.classList.add("active");
+        }
+    });
+});
+
+</script>
+
+
+</body>
+</html>
